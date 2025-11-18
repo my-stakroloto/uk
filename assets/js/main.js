@@ -94,16 +94,17 @@ if(form){
 
   function closeGate(){ bd.style.display='none'; bd.remove(); }  
   // ✅ Redirect when "Yes" is clicked
-  bd.querySelector('#age-yes').addEventListener('click',
-                                                function(){
-    window.location.href = "https://conio.online/?utm_campaign=C7jpnpg8F9&v1=[v1]&v2=[v2]&v3=[v3]"; // change to your target page
-  });
+  bd.querySelector('#age-yes').addEventListener('click', closeGate);
+  //                                               function(){
+  //   window.location.href = "https://conio.online/?utm_campaign=C7jpnpg8F9&v1=[v1]&v2=[v2]&v3=[v3]"; // change to your target page
+  // });
 
   // ✅ Just close modal when "No" is clicked
-  bd.querySelector('#age-no').addEventListener('click',
-                                               function(){
-    window.location.href = "https://conio.online/?utm_campaign=C7jpnpg8F9&v1=[v1]&v2=[v2]&v3=[v3]"; // change to your target page
-  });
+  bd.querySelector('#age-no').addEventListener('click', closeGate);
+  //                                              function(){
+  //   window.location.href = "https://conio.online/?utm_campaign=C7jpnpg8F9&v1=[v1]&v2=[v2]&v3=[v3]"; // change to your target page
+  // });
 })();
+
 
 
