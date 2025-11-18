@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="./assets/img/logo
+.svg">
+<title>Leaderboard — Neon Pong Arena</title>
+<meta name="description" content="Track your top scores and victories in the Neon Pong Arena.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    font-family: 'Exo 2', sans-serif;
+  }
+  th, td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  }
+  th {
+    font-family: 'Orbitron', monospace;
+    color: #00ffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    border-bottom-width: 2px;
+  }
+  tr:nth-child(even) {
+    background-color: rgba(0, 255, 255, 0.03);
+  }
+  tr:hover {
+    background-color: rgba(0, 255, 255, 0.1);
+  }
+  td:first-child {
+    font-weight: 700;
+    color: #ff00ff;
+  }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html" aria-label="Home">⚡NEON PONG ARENA</a>
+    <div class="menu" data-nav-menu>
+      <a href="index.html">Home</a>
+      <a href="game.html">Play Game</a>
+      <a href="leaderboard.html" style="opacity:1;font-weight:800">Leaderboard</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Blog</a>
+    </div>
+    <div class="right"><a class="btn" href="game.html">Play Now</a></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <h1>Leaderboard</h1>
+    <p>Track your top scores and victories in the Neon Pong Arena.</p>
+  </div>
+</header>
+
+<section class="section container">
+  <div class="card">
+    <div id="lb" style="overflow-x: auto;">Loading…</div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const el=document.getElementById('lb');
+  // Using a new key for Neon Pong Arena to avoid conflicts with old data
+  const lb=JSON.parse(localStorage.getItem('neonpong_leaderboard')||'[]');
+  if(!lb.length){
+    el.innerHTML='<p>No matches yet. Play a game and start climbing the ranks, pilot!</p>';
+    return;
+  }
+  // Sort by score difference (player - ai) descending
+  lb.sort((a, b) => (b.playerScore - b.aiScore) - (a.playerScore - a.aiScore));
+
+  const rows=lb.slice(0,20).map((r,i)=>
+    `<tr>
+      <td>#${i+1}</td>
+      <td>${r.playerScore} - ${r.aiScore}</td>
+      <td>${r.playerScore > r.aiScore ? 'Player' : 'Cyber AI'}</td>
+      <td>${new Date(r.at).toLocaleString()}</td>
+    </tr>`
+  ).join('');
+
+  el.innerHTML=`<table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Score</th>
+        <th>Winner</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+})();
+</script>
+
+<footer class="footer">
+  <div class="container footer-content">
+    <div>© 2025 Neon Pong Arena. All rights reserved.</div>
+    <div class="footer-badge">Cyber Physics • Responsive • AI-Powered</div>
+  </div>
+</footer><script src="assets/js/main.js"></script></body></html>
